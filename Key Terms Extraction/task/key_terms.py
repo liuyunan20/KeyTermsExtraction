@@ -1,5 +1,6 @@
 import nltk
 from lxml import etree
+import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -17,8 +18,8 @@ for news in root[0]:
             content = value.text
     word_freq = {}
     for word in word_tokenize(content.lower()):
-        word = lemmatizer.lemmatize(word, pos='n')
-        if word not in stopwords.words('english') and word not in list(string.punctuation):
+        word = lemmatizer.lemmatize(word)
+        if word not in stopwords.words('english') and word not in list(string.punctuation) and nltk.pos_tag([word])[0][1] == 'NN':
             word_freq.setdefault(word, 0)
             word_freq[word] += 1
     sorted_word_freq = sorted(word_freq.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
