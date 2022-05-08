@@ -30,15 +30,22 @@ for news in root[0]:
             # print(news_words)
     news_text.append(news_words)
 
-vectorizer.fit(news_text)
-# print(vectorizer.vocabulary_)
+tfidf_matrix = vectorizer.fit_transform(news_text)
+# print(tfidf_matrix)
+terms = [word for word in vectorizer.get_feature_names_out()]
+# print(terms)
 
-for title, news in zip(titles, news_text):
+for i in range(10):
     word_score = {}
-    scores = vectorizer.transform([news]).toarray()
+    # scores = vectorizer.transform([news]).toarray()
     # print(scores)
-    for i, word in enumerate(news.split()):
-        word_score[word] = scores[0][i]
+    for word in news_text[i].split():
+        try:
+            index = terms.index(word)
+        except ValueError:
+            continue
+        word_score[word] = tfidf_matrix[(i, index)]
+    # print(word_score)
     sorted_word_freq = sorted(word_score.items(), key=lambda kv: (kv[1], kv[0]), reverse=True)
-    print(f'{title}:')
+    print(f'{titles[i]}:')
     print(*[x[0] for x in sorted_word_freq[:5]])
