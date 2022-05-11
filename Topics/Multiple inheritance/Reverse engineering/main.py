@@ -1,34 +1,40 @@
 # create the hierarchy here
 class Vehicle:
-    def __init__(self):
+    def __init__(self, name):
         self.type = 'Vehicle'
+        self.name = name
 
 
 class LandVehicle(Vehicle):
-    def __init__(self):
+    def __init__(self, name):
         self.type = 'LandVehicle'
-        super().__init__()
+        self.name = name
+        super().__init__(name)
 
 
 class WaterVehicle(Vehicle):
-    def __init__(self):
+    def __init__(self, name):
         self.type = 'WaterVehicle'
-        super().__init__()
+        self.name = name
+        super().__init__(name)
 
 
 class Car(LandVehicle):
-    def __init__(self):
+    def __init__(self, name):
         self.type = 'Car'
-        super().__init__()
+        self.name = name
+        super().__init__(name)
 
 
 class Boat(WaterVehicle):
-    def __init__(self):
+    def __init__(self, name):
         self.type = 'Boat'
-        super().__init__()
+        self.name = name
+        super().__init__(name)
 
 
 class CarBoat(Car, Boat):
-    def __init__(self):
+    def __init__(self, name):
         self.type = 'CarBoat'
-        super().__init__()
+        self.name = name
+        super().__init__(name)
